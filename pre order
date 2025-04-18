@@ -1,0 +1,33 @@
+#include <stdlib.h>
+
+int result[1000]; // Big fixed-size array to avoid resizing
+int count = 0;    // Global counter for the result array
+
+// Helper function to perform preorder traversal
+void preorder(struct TreeNode* root) {
+    if (root == NULL) {
+        return; // Stop if the node is NULL
+    }
+
+    // Add the current node's value to the result array
+    result[count] = root->val;
+    count++;
+
+    // Recursively visit left and right children
+    preorder(root->left);
+    preorder(root->right);
+}
+
+// Main function to call the traversal
+int* preorderTraversal(struct TreeNode* root, int* returnSize) {
+    count = 0; // Reset the counter for each traversal
+
+    // Perform the traversal
+    preorder(root);
+
+    // Set the return size
+    *returnSize = count;
+
+    // Return the result array (not dynamically allocated)
+    return result;
+}
